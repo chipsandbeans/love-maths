@@ -28,8 +28,9 @@ function runGame(gameType) {
         displayAdditionQuestion(num1, num2);
     } else if (gameType === "multiply") {
         displayMultiplyQuestion(num1, num2);
-    }
-    else {
+    } else if (gameType === "subtract") {
+        displaySubtractQuestion(num1, num2);
+    } else {
         alert(`Unknown Game Type: ${gameType}`);
         throw `Unknown Game Type: ${gameType}.Aborting!`
     }
@@ -56,9 +57,9 @@ function checkAnswer() {
 
 }
 /* 
-* This calculates the correct aswer by getting the operands (numbers) 
-* and operators (plus/minus) directly from the DOM 
-*/
+ * This calculates the correct aswer by getting the operands (numbers) 
+ * and operators (plus/minus) directly from the DOM 
+ */
 function calculateCorrectAnswer() {
     let operand1 = parseInt(document.getElementById('operand1').innerText);
     let operand2 = parseInt(document.getElementById('operand2').innerText);
@@ -68,6 +69,8 @@ function calculateCorrectAnswer() {
         return [operand1 + operand2, "addition"];
     } else if (operator === "x") {
         return [operand1 * operand2, "multiply"];
+    } else if (operator === "-") {
+        return [operand1 - operand2, "subtract"];
     } else {
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}.Aborting!`;
@@ -98,7 +101,10 @@ function displayAdditionQuestion(operand1, operand2) {
 
 }
 
-function displaySubtractQuestion() {
+function displaySubtractQuestion(operand1, operand2) {
+    document.getElementById("operand1").textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById("operand2").textContent = operand1 > operand2 ? operand2 : operand1;
+    document.getElementById('operator').textContent = "-";
 
 }
 
